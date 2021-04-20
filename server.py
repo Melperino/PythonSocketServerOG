@@ -34,9 +34,9 @@ async def handle_client(reader, writer):
     if infoJson != False:
     	connectionJson = {"address": ','.join(map(str,connection))}
     	infoJson.update(connectionJson)
-    	connection_set_in(infoJson,connections)
+    	connection_in(infoJson,connections)
     	if infoJson["role"] == "admin":
-    		connection_set_in((connection,reader,writer),adminSockets)
+    		connection_in((connection,reader,writer),adminSockets)
     	broadcast_to_admin()
     
     #if there's an expected disconnection a message with the content of !DISCONNECT is recieved
