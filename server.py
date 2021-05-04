@@ -31,13 +31,15 @@ async def handle_client(reader, writer):
     	break
     #the message is casted to a json and if it succeeds it adds the connection to the lists 
     infoJson = is_json(info)
-    if infoJson != False:
-    	connectionJson = {"address": ','.join(map(str,connection))}
-    	infoJson.update(connectionJson)
-    	connection_in(infoJson,connections)
-    	if infoJson["role"] == "admin":
-    		connection_in((connection,reader,writer),adminSockets)
-    	broadcast_to_admin()
+    print(infoJson)
+    if infoJson != False or infoJson != 'start':
+      print(type(infoJson))
+      connectionJson = {'address': ','.join(map(str,connection))}
+      infoJson.update(connectionJson)
+      connection_in(infoJson,connections)
+      if infoJson["role"] == "admin":
+       connection_in((connection,reader,writer),adminSockets)
+      broadcast_to_admin()
     
     #if there's an expected disconnection a message with the content of !DISCONNECT is recieved
     if info == '!DISCONNECT':
