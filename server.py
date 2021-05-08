@@ -33,7 +33,6 @@ async def handle_client(reader, writer):
     infoJson = is_json(info)
     print(infoJson)
     if infoJson != False or infoJson != 'start':
-      print(type(infoJson))
       connectionJson = {'address': ','.join(map(str,connection))}
       infoJson.update(connectionJson)
       connection_in(infoJson,connections)
@@ -45,8 +44,6 @@ async def handle_client(reader, writer):
     if info == '!DISCONNECT':
     	disconnect_client()
     	break
-    
-    writer.write(f'ok, received {info}'.encode('utf8'))
     await writer.drain()
   writer.close()
 
